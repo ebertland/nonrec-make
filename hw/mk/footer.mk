@@ -95,8 +95,7 @@ ifeq ($(filter clean clean_% dist_clean,$(MAKECMDGOALS)),)
 SUBDIRS_TGTS := $(foreach sd,$(SUBDIRS_$(d)),$(TARGETS_$(sd)))
 
 # Use the skeleton for the "current dir"
-$(call debug,Expanding skeletons for $(d))
-$(call debug,OBJPATH=$(OBJPATH))
+$(call debug,Expanding skeletons for $(d) with OBJPATH=$(OBJPATH))
 $(eval $(call skeleton,$(d)))
 $(eval $(call user_skeleton,$(d)))
 # and for each SRCS_VPATH subdirectory of "current dir"
