@@ -95,9 +95,13 @@ ifeq ($(filter clean clean_% dist_clean,$(MAKECMDGOALS)),)
 SUBDIRS_TGTS := $(foreach sd,$(SUBDIRS_$(d)),$(TARGETS_$(sd)))
 
 # Use the skeleton for the "current dir"
+$(call debug,Expanding skeletons for $(d))
+$(call debug,OBJPATH=$(OBJPATH))
 $(eval $(call skeleton,$(d)))
+$(eval $(call user_skeleton,$(d)))
 # and for each SRCS_VPATH subdirectory of "current dir"
 $(foreach vd,$(SRCS_VPATH),$(eval $(call skeleton,$(d)/$(vd))))
+$(foreach vd,$(SRCS_VPATH),$(eval $(call user_skeleton,$(d)/$(vd))))
 
 # Target rules for all "non automatic" targets
 $(foreach tgt,$(filter-out $(AUTO_TGTS),$(TARGETS_$(d))),$(eval $(call tgt_rule,$(tgt))))
